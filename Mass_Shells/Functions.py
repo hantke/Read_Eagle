@@ -48,5 +48,5 @@ def Shell(Pos, Mpart, Rad, L,NBin):
 	iDist = (Dist/Rad*NBin).astype(int)
 	IDs = np.where((iDist >= 0) & (iDist < NBin))[0]
 	for ID in IDs: 	Arr[iDist[ID]] += Mpart[ID]
-	for i in range(len(Arr)-1): Arr[-1-i:] += Arr[-2-i]
+	#for i in range(len(Arr)-1): Arr[-1-i:] += Arr[-2-i]
 	return Arr
