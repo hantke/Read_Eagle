@@ -42,8 +42,8 @@ Sel_SubGroup 	= []
 Sel_MStell 		= []
 Sel_Shell 		= []
 
-for gr in range(Index_Range):
-	for sgr in range(Index_Range[gr]):
+for gr in range(len(Index_Range)):
+	for sgr in range(len(Index_Range[gr])):
 		#IDs = (Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]])
 		Mstell = np.sum(Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]])
 		if (Mstell > Mcut):
