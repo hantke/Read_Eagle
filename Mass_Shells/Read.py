@@ -10,7 +10,7 @@ def Read_Particles(sim, tag):
 		###
 	num_St = abs(num_St)
 	num_St_SH = abs(num_St_SH)
-	ind = lexsort((num_St_SH,num_St))
+	ind = np.lexsort((num_St_SH,num_St))
 	
 	num_St = num_St[ind]
 	num_St_SH = num_St_SH[ind]

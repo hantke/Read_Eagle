@@ -26,11 +26,22 @@ def Get_PartIndexRange(GroupID,SubGroupID,NumOfSubhalos):
 def Correct_Bounds_mdx(dx,L = 100):#Module of dx in a periodic box
 	dx[dx < L/2.] = L-dx
 	return dx
-def Shell(Pos,gr_Pos, Mpart, Rad, L,NBin):
+def Center(A,M,L):
+	if M == []: M = np.zeros(len(A))+1
+	if A[0] < L/10.:
+		A[A > 9*L/10.] = L-A[A > 9*L/10.]
+	elif A[0] > 9*L/10.:
+		A[A < L/10.] = L+A[A < L/10.]
+	return A*M/np.sum(M)
+		
+
+
+def Shell(Pos, Mpart, Rad, L,NBin):
 	dx = []
 	Arr = np.zeros(NBin)
 	for i in range(3):
-		dx_tmp = abs(Pos[:,i]-gr_Pos[i])
+		sgr_Cen = Center(Pos[:,i],Mpart,L)
+		dx_tmp = abs(Pos[:,i]-sgr_Cen)
 		dx.append(Correct_Bounds_mdx(dx_tmp,L = L))
 	dx = np.array(dx)
 	Dist  = (dx[:,0]**2+dx[:,1]**2+dx[:,2]**2)**0.5

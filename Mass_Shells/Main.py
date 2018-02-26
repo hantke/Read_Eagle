@@ -2,7 +2,7 @@
 import numpy as np
 import sys
 import Read as R
-import Function as F
+import Functions as F
 
 ################################ Modules ##################################################
 
@@ -19,7 +19,7 @@ tag = TAGS[Snap]
 #sim='/cosma5/data/Eagle/ScienceRuns/Planck1/L0025N0752/PE/RECALIBRATED/data/'
 sim = '/cosma5/data/Eagle/ScienceRuns/Planck1/L0100N1504/PE/REFERENCE/data/'
 
-L,a,h = Read_MainProp(sim, tag)
+L,a,h = R.Read_MainProp(sim, tag)
 L *= a
 
 
