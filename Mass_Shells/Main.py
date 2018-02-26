@@ -10,6 +10,7 @@ import Functions as F
 ################################  Vars ##################################################
 
 Snap = int(sys.argv[1])
+h = 0.6777
 Mcut = 0.01
 Rad = 0.02 # 20 pkpc
 NBin = 200 # dx = 100 ppc
@@ -20,14 +21,14 @@ tag = TAGS[Snap]
 sim = '/cosma5/data/Eagle/ScienceRuns/Planck1/L0100N1504/PE/REFERENCE/data/'
 
 L,a,h = R.Read_MainProp(sim, tag)
-L *= a
+L *= (a/h)
 
 
 
 ################################ READ ####################################
 
 pos_St,Mass_St,num_St,num_St_SH = R.Read_Particles(sim, tag)
-Cen_Group,NumOfSubhalos = R.Read_Haloes(sim, tag)
+NumOfSubhalos = R.Read_Haloes(sim, tag)
 
 pos_St *= a
 
@@ -49,4 +50,8 @@ for gr in range(Index_Range):
 			Sel_Group.append(gr+1)
 			Sel_SubGroup.append(sgr)
 			Sel_MStell.append(np.log10(Mstell)+10)
-			Sel_Shell.append(Shell(pos_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]],Cen_Group[gr], Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Rad, L,NBin))
+			Sel_Shell.append(Shell(pos_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Rad, L,NBin))
+
+Sel_Shell = np.array(Sel_Shell)
+
+np.save(test,Sel_Shell)

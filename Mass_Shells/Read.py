@@ -19,9 +19,9 @@ def Read_Particles(sim, tag):
 	return pos_St,Mass_St,num_St,num_St_SH
 
 def Read_Haloes(sim, tag):
-	Cen_Group = E.readArray("SUBFIND_GROUP", sim, tag, "FOF/GroupCentreOfPotential")
+	#Cen_Group = E.readArray("SUBFIND_GROUP", sim, tag, "FOF/GroupCentreOfPotential")
 	NumOfSubhalos = E.readArray("SUBFIND_GROUP", sim, tag, "FOF/NumOfSubhalos")
-	return Cen_Group,NumOfSubhalos
+	return NumOfSubhalos
 
 def Read_MainProp(sim, tag):
 	boxSize = E.readAttribute("SUBFIND", sim, tag, "/Header/BoxSize")

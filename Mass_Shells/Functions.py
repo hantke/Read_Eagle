@@ -24,7 +24,7 @@ def Get_PartIndexRange(GroupID,SubGroupID,NumOfSubhalos):
 	return Range_id
 
 def Correct_Bounds_mdx(dx,L = 100):#Module of dx in a periodic box
-	dx[dx < L/2.] = L-dx
+	dx[dx > L/2.] = L-dx[dx > L/2.]
 	return dx
 def Center(A,M,L):
 	if M == []: M = np.zeros(len(A))+1
@@ -32,7 +32,7 @@ def Center(A,M,L):
 		A[A > 9*L/10.] = L-A[A > 9*L/10.]
 	elif A[0] > 9*L/10.:
 		A[A < L/10.] = L+A[A < L/10.]
-	return A*M/np.sum(M)
+	return np.sum(A*M)/np.sum(M)
 		
 
 
@@ -44,9 +44,9 @@ def Shell(Pos, Mpart, Rad, L,NBin):
 		dx_tmp = abs(Pos[:,i]-sgr_Cen)
 		dx.append(Correct_Bounds_mdx(dx_tmp,L = L))
 	dx = np.array(dx)
-	Dist  = (dx[:,0]**2+dx[:,1]**2+dx[:,2]**2)**0.5
+	Dist  = (dx[0,:]**2+dx[1,:]**2+dx[2,:]**2)**0.5
 	iDist = (Dist/Rad*NBin).astype(int)
 	IDs = np.where((iDist >= 0) & (iDist < NBin))[0]
-	for ID in IDs: 	Arr[ID] += Mpart[ID]
+	for ID in IDs: 	Arr[iDist[ID]] += Mpart[ID]
 	for i in range(len(Arr)-1): Arr[-1-i:] += Arr[-2-i]
 	return Arr
