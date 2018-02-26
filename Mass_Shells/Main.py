@@ -34,7 +34,7 @@ pos_St *= a
 ################################  MAIN  ##################################
 
 
-Index_Range = Get_PartIndexRange(num_St,num_St_SH,NumOfSubhalos)
+Index_Range = F.Get_PartIndexRange(num_St,num_St_SH,NumOfSubhalos)
 
 Sel_Group 		= []
 Sel_SubGroup 	= []
@@ -43,10 +43,10 @@ Sel_Shell 		= []
 
 for gr in range(Index_Range):
 	for sgr in range(Index_Range[gr]):
-		IDs = (Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]])
+		#IDs = (Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]])
 		Mstell = np.sum(Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]])
 		if (Mstell > Mcut):
 			Sel_Group.append(gr+1)
 			Sel_SubGroup.append(sgr)
 			Sel_MStell.append(np.log10(Mstell)+10)
-			Sel_Shell.append(Shell(pos_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]],gr_Pos, Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Rad, L,NBin))
+			Sel_Shell.append(Shell(pos_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]],Cen_Group[gr], Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Rad, L,NBin))
