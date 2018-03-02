@@ -23,6 +23,17 @@ def Get_PartIndexRange(GroupID,SubGroupID,NumOfSubhalos):
 			Last_SubGroup = SubGroupID[i]
 	return Range_id
 
+def Get_SubHaloCenter(GroupID,SubGroupID,NumOfSubhalos, SHCenter):
+	LSubGroup = len(GroupID)#Carefull point 0
+	LGroup = len(NumOfSubhalos)
+	CenterOfPotential = []
+	for i in range(LGroup):	CenterOfPotential.append(np.zeros((NumOfSubhalos[i],3),dtype=int))
+	for i in range(LSubGroup):
+		if  GroupID[i] >= LGroup or SubGroupID[i] >= NumOfSubhalos[GroupID[i]]:	pass
+		else:
+			CenterOfPotential[GroupID[i]][SubGroupID[i]]  =  SHCenter[i]
+	return CenterOfPotential
+
 def Correct_Bounds_mdx(dx,L = 100):#Module of dx in a periodic box
 	dx[dx > L/2.] = L-dx[dx > L/2.]
 	return dx
@@ -36,11 +47,12 @@ def Center(A,M,L):
 		
 
 
-def Shell(Pos, Mpart, Rad, L,NBin):
+def Shell(Pos, Mpart, Rad, L,NBin, CenterOfPotential = []):
 	dx = []
 	Arr = np.zeros(NBin)
 	for i in range(3):
-		sgr_Cen = Center(Pos[:,i],Mpart,L)
+		if len(CenterOfPotential) == 0: sgr_Cen = Center(Pos[:,i],Mpart,L)
+		else: sgr_Cen = CenterOfPotential
 		dx_tmp = abs(Pos[:,i]-sgr_Cen)
 		dx.append(Correct_Bounds_mdx(dx_tmp,L = L))
 	dx = np.array(dx)

@@ -23,6 +23,22 @@ def Read_Haloes(sim, tag):
 	NumOfSubhalos = E.readArray("SUBFIND_GROUP", sim, tag, "FOF/NumOfSubhalos")
 	return NumOfSubhalos
 
+def Read_Subhaloes(sim, tag):
+	#Cen_Group = E.readArray("SUBFIND_GROUP", sim, tag, "FOF/GroupCentreOfPotential")
+	SubHalo_gr = E.readArray("SUBFIND", sim, tag, "Subhalo/GroupNumber")
+	SubHalo_sgr = E.readArray("SUBFIND", sim, tag, "Subhalo/SubGroupNumber")
+	SubHalo_pos = E.readArray("SUBFIND", sim, tag, "Subhalo/CentreOfPotential")
+	
+	SubHalo_gr = abs(SubHalo_gr)
+	SubHalo_sgr = abs(SubHalo_sgr)
+	ind = np.lexsort((SubHalo_sgr,SubHalo_gr))
+	
+	SubHalo_gr = SubHalo_gr[ind]
+	SubHalo_sgr = SubHalo_sgr[ind]
+	SubHalo_pos = SubHalo_pos[ind]
+	
+	return SubHalo_gr,SubHalo_sgr,SubHalo_pos
+
 def Read_MainProp(sim, tag):
 	boxSize = E.readAttribute("SUBFIND", sim, tag, "/Header/BoxSize")
 	z = E.readAttribute("SUBFIND", sim, tag, "/Header/Redshift")
