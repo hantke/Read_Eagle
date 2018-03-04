@@ -27,7 +27,7 @@ def Get_SubHaloCenter(GroupID,SubGroupID,NumOfSubhalos, SHCenter):
 	LSubGroup = len(GroupID)#Carefull point 0
 	LGroup = len(NumOfSubhalos)
 	CenterOfPotential = []
-	for i in range(LGroup):	CenterOfPotential.append(np.zeros((NumOfSubhalos[i],3),dtype=int))
+	for i in range(LGroup):	CenterOfPotential.append(np.zeros((NumOfSubhalos[i],3),dtype=float))
 	for i in range(LSubGroup):
 		if  GroupID[i] >= LGroup or SubGroupID[i] >= NumOfSubhalos[GroupID[i]]:	pass
 		else:
