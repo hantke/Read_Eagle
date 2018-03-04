@@ -53,7 +53,7 @@ def Shell(Pos, Mpart, Rad, L,NBin, CenterOfPotential = []):
 	for i in range(3):
 		if len(CenterOfPotential) == 0: sgr_Cen = Center(Pos[:,i],Mpart,L)
 		else: sgr_Cen = CenterOfPotential
-		dx_tmp = abs(Pos[:,i]-sgr_Cen)
+		dx_tmp = abs(Pos[:,i]-sgr_Cen[i])
 		dx.append(Correct_Bounds_mdx(dx_tmp,L = L))
 	dx = np.array(dx)
 	Dist  = (dx[0,:]**2+dx[1,:]**2+dx[2,:]**2)**0.5
