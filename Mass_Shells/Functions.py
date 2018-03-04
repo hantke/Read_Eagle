@@ -31,7 +31,7 @@ def Get_SubHaloCenter(GroupID,SubGroupID,NumOfSubhalos, SHCenter):
 	for i in range(LSubGroup):
 		if  GroupID[i] >= LGroup or SubGroupID[i] >= NumOfSubhalos[GroupID[i]]:	pass
 		else:
-			CenterOfPotential[GroupID[i]][SubGroupID[i]]  =  SHCenter[i]
+			CenterOfPotential[GroupID[i]-1][SubGroupID[i]]  =  SHCenter[i]
 	return CenterOfPotential
 
 def Correct_Bounds_mdx(dx,L = 100):#Module of dx in a periodic box
