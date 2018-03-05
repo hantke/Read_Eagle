@@ -76,8 +76,9 @@ def Find_ainA(a,A,a0,a1):#Look for a in Y-Table, initial a0,a1 = 0, len(A-1)
 	return med	
 
 def Find_AinB(A, B):# Only if A is complete in B
-	a=max(0,Find_ainA(A[0],B,0,len(B)-1))
-	b=0
+	b=max(0,Find_ainA(A[0],B,0,len(B)-1)-1)
+	a = 0
+	#b=0
 	index = []
 	while a<len(A):
 		if (A[a] < B[b]) or (len(B)<b):
@@ -89,7 +90,7 @@ def Find_AinB(A, B):# Only if A is complete in B
 			a+=1
 		b+=1
 	return np.array(index)
-	
+
 def Most_Bound_Part(sh_IDs,sh_Pos,part_IDs,part_Pot):
 	ind1 = np.argsort(sh_IDs)
 	sh_IDs = sh_IDs[ind1]
