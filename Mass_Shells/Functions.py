@@ -63,8 +63,20 @@ def Shell(Pos, Mpart, Rad, L,NBin, CenterOfPotential = []):
 	#for i in range(len(Arr)-1): Arr[-1-i:] += Arr[-2-i]
 	return Arr
 
+def Find_ainA(a,A,a0,a1):#Look for a in Y-Table, initial a0,a1 = 0, len(A-1)
+	if a1 - a0 < 3:
+		t = a0
+		while t <= a1 and t < len(A):
+			if a == A[t]:	return t
+			t += 1
+		return -99	
+	med = (a1+a0)/2
+	if a < A[med]:	return Find_ainA(a,A,a0,med)
+	if a > A[med]:	return Find_ainA(a,A,med,a1)
+	return med	
+
 def Find_AinB(A, B):# Only if A is complete in B
-	a=0
+	a=max(0,Find_ainA(A[0],B,0,len(B)-1))
 	b=0
 	index = []
 	while a<len(A):
@@ -76,7 +88,7 @@ def Find_AinB(A, B):# Only if A is complete in B
 			index.append(b)
 			a+=1
 		b+=1
-	return index
+	return np.array(index)
 	
 def Most_Bound_Part(sh_IDs,sh_Pos,part_IDs,part_Pot):
 	ind1 = np.argsort(sh_IDs)
