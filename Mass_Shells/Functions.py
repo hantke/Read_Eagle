@@ -67,15 +67,16 @@ def Find_AinB(A, B):# Only if A is complete in B
 	a=0
 	b=0
 	index = []
-	while( a<len(A)):
-	if (A[a] < B[b]) or (len(B)<b):
-		print 'warning', a, b, A[a], B[b]
-		return -1
-	#if b%1000000==0: print a, b, A[a], B[b]
-	if A[a]== B[b]:
-		index.append(b)
-		a+=1
-	b+=1
+	while a<len(A):
+		if (A[a] < B[b]) or (len(B)<b):
+			print 'warning', a, b, A[a], B[b]
+			return -1
+		#if b%1000000==0: print a, b, A[a], B[b]
+		if A[a]== B[b]:
+			index.append(b)
+			a+=1
+		b+=1
+	return index
 	
 def Most_Bound_Part(sh_IDs,sh_Pos,part_IDs,part_Pot):
 	ind1 = np.argsort(sh_IDs)
