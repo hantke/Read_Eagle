@@ -31,15 +31,15 @@ L *= (a/h)
 
 ################################ READ ####################################
 
-pos_St,Mass_St,num_St,num_St_SH = R.Read_Particles(sim, tag)
+pos_St,Mass_St,num_St,num_St_SH,ParticleIDs_St = R.Read_Particles_v2(sim, tag)
 NumOfSubhalos = R.Read_Haloes(sim, tag)
-SubHalo_gr,SubHalo_sgr,SubHalo_pos = R.Read_Subhaloes(sim, tag)
+#SubHalo_gr,SubHalo_sgr,SubHalo_pos = R.Read_Subhaloes(sim, tag)
 ParticleID,Particle_Binding_Energy = R.Read_Particles_ID(sim, tag)
 ################################  MAIN  ##################################
 
 
 Index_Range = F.Get_PartIndexRange(num_St,num_St_SH,NumOfSubhalos)
-CenterOfPotential = F.Get_SubHaloCenter(SubHalo_gr,SubHalo_sgr,NumOfSubhalos, SubHalo_pos)
+#CenterOfPotential = F.Get_SubHaloCenter(SubHalo_gr,SubHalo_sgr,NumOfSubhalos, SubHalo_pos)
 
 Sel_Group 		= []
 Sel_SubGroup 	= []
@@ -49,12 +49,13 @@ Sel_Shell 		= []
 for gr in range(len(Index_Range)):
 	for sgr in range(len(Index_Range[gr])):
 		#IDs = (Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]])
+		CoP = F.Most_Bound_Part(ParticleIDs_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]],pos_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]],ParticleID,Particle_Binding_Energy )
 		Mstell = np.sum(Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]])
 		if (Mstell > Mcut):
 			Sel_Group.append(gr+1)
 			Sel_SubGroup.append(sgr)
 			Sel_MStell.append(np.log10(Mstell)+10)
-			Sel_Shell.append(F.Shell(pos_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Rad, L,NBin,CenterOfPotential[gr][sgr]))
+			Sel_Shell.append(F.Shell(pos_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Mass_St[Index_Range[gr][sgr][0]:Index_Range[gr][sgr][1]], Rad, L,NBin,CoP))
 
 Sel_Shell = np.array(Sel_Shell)
 
